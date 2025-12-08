@@ -3,6 +3,9 @@ import time
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
@@ -37,26 +40,33 @@ class TestLogin(unittest.TestCase):
         self.assertTrue(self.login.is_visible(self.login.CSS_LOGIN_BTN))
 
         self.login.login("flowuser@example.com", "123456")
+        time.sleep(4)
 
-        # handle "No user found" alert (same logic you had)
         try:
+            # wait up to 5 seconds for an alert
+            WebDriverWait(self.driver, 10).until(EC.alert_is_present())
             alert = self.driver.switch_to.alert
             text = alert.text
+
             if "No user found" in text:
-                alert.accept()
+                alert.accept()  # CLOSE ALERT FIRST
+
+                # go to signup, create user
                 self.driver.get("F:/Selenium_testing/auth/sign-up.html")
-                self.signup.signup("flowuser", "flowuser@example.com", "123456")
-                time.sleep(1)
+                self.signup.signup("sakib", "sakib@gmail.com", "123456")
+                time.sleep(6)
+                alert.accept()
+
+                # after signup, login again
                 self.driver.get("F:/Selenium_testing/auth/login.html")
-                self.login.login("flowuser@example.com", "123456")
-        except Exception:
+                self.login.login("sakib@gmail.com", "123456")
+
+        except TimeoutException:
+            # no alert -> user already exists, login succeeded
             pass
 
-        time.sleep(1)
-        # self.assertIn("index.html", self.driver.current_url)
-
     def tearDown(self):
-        time.sleep(1)
+        time.sleep(6)
         self.driver.quit()
 
 

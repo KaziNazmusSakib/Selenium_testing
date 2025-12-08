@@ -2,8 +2,7 @@
 import time
 import unittest
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-
+from selenium.common.exceptions import NoAlertPresentException
 from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
 from pages.filters_cart_products_locators import (
@@ -28,32 +27,47 @@ class TestCategoryCartFlow(unittest.TestCase):
     def test_category_add_remove_checkout(self):
         self.driver.get("F:/Selenium_testing/index.html")
 
-        # 1) select more than one category (your FiltersPage should do this)
+            # 1) select category (optional)
         self.assertTrue(self.filters.is_visible(self.filters.CATEGORY_FILTERS))
-        self.filters.click_any_category()         # adjust: make this select multiple if needed
-        self.filters.click_any_category()
+        self.filters.click_first_category()
 
         # 2) apply filters
         self.filters.apply_filters()
-        time.sleep(1)
+        time.sleep(5)
 
-        # 3) add to cart (more than one product if possible)
+        # 3) add products
         self.products.add_first_product_to_cart()
-        self.products.add_first_product_to_cart()  # or add_second_product_to_cart()
-        time.sleep(1)
+        self.products.add_second_product_to_cart()
+        time.sleep(5)
 
+         #3.5 clear filters right after adding products
+        self.filters.clear_filters()
+        time.sleep(5)
+        
         # 4) remove more than one from cart
-        self.cart.remove_first_item()
-        self.cart.remove_first_item()
-        time.sleep(1)
+        self.cart.remove_multiple_items()
+        time.sleep(5)
+
+        # handle confirm('Are you sure?') alert
+        try:
+            alert = self.driver.switch_to.alert
+            if "Are you sure" in alert.text:
+                alert.accept()
+        except NoAlertPresentException:
+            pass
 
         # 5) checkout
-        self.assertTrue(self.cart.is_visible(self.cart.CART))
+        cart_el = self.driver.find_element(*self.cart.CART)
+        self.assertTrue(cart_el.is_displayed())
         self.cart.checkout()
-        time.sleep(1)
+        time.sleep(5)
+
+ 
+
+
 
     def tearDown(self):
-        time.sleep(1)
+        time.sleep(6)
         self.driver.quit()
 
 

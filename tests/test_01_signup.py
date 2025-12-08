@@ -17,7 +17,7 @@ class TestSignup(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.maximize_window()
-        time.sleep(1)
+        time.sleep(4)
 
         self.login = LoginPage(self.driver)
         self.signup = SignupPage(self.driver)
@@ -36,10 +36,10 @@ class TestSignup(unittest.TestCase):
         self.assertTrue(self.signup.is_visible(self.signup.FORM_ID))
         self.assertTrue(self.signup.is_visible(self.signup.CSS_SIGNUP_BTN))
 
-        self.signup.signup("flowuser", "flowuser@example.com", "123456")
+        self.signup.signup("sakib", "sakib@gmail.com", "123456")
 
     def tearDown(self):
-        time.sleep(1)
+        time.sleep(4)
         self.driver.quit()
 
 

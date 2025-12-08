@@ -33,7 +33,7 @@ class TestProductGrid(unittest.TestCase):
         self.assertTrue(len(self.driver.find_elements(By.CSS_SELECTOR, "#product-grid > div")) >= 0)
 
     def tearDown(self):
-        time.sleep(1)
+        time.sleep(4)
         self.driver.quit()
 
 

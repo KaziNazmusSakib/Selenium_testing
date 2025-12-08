@@ -168,7 +168,7 @@ const renderCart = (cart) => {
 /////////////////////////// 
 const getProductImageComponent = (product) => {
     const productImageComponent = document.createElement("img");
-    productImageComponent.className = "w-full mb-4";
+    productImageComponent.className = "w-full h-40 object-cover mb-4";
     productImageComponent.src = product.image;
     productImageComponent.alt = product.name;
 
@@ -320,13 +320,27 @@ clearFiltersBtn.addEventListener('click', () => {
 
 
 checkoutBtn.addEventListener('click', () => {
-    
-    getCartListItem();
-    getAddToCartBtn(product);
-    removeCartItem(product);
-    renderCart(cart);
-     
+  if (cart.length === 0) {
+    alert('Cart is empty!');
+    return;
+  }
+
+  // Simple confirmation – you can replace with real checkout logic
+  if (!confirm('Proceed to checkout?')) {
+    return;
+  }
+
+  // Clear cart data
+  cart.length = 0;            // empty the in‑memory array
+  saveCartItemsToLocalStorage(cart);  // clear from localStorage
+
+  // Re-render UI
+  renderCart(cart);
+  renderProducts(products);
+
+  alert('Checkout complete!');
 });
+
 /////////////////////////////
 
 renderProducts(products); 
