@@ -64,7 +64,7 @@ const products = [
   },
 ];
 
-
+  
 const productGrid = document.getElementById("product-grid");
 const cartList = document.getElementById('cart-items');
 const totalPriceComponent = document.getElementById("total-price");

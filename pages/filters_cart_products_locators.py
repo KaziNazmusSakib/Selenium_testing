@@ -35,7 +35,7 @@ class ProductsPage(BasePage):
 
     def add_product_by_index(self, index: int):
         # wait until product cards are rendered
-        WebDriverWait(self.driver, 20).until(
+        WebDriverWait(self.driver, 30).until(
             EC.presence_of_element_located(self.ADD_TO_CART_BTNS)
         )
         buttons = self.driver.find_elements(*self.ADD_TO_CART_BTNS)
@@ -63,7 +63,7 @@ class CartPage(BasePage):
     def checkout(self):
         self.click(self.CHECKOUT_BTN)
 
-    def remove_multiple_items(self):
+    def remove_single_items(self):
         buttons = self.driver.find_elements(*self.REMOVE_BUTTONS)
         for btn in buttons:
             btn.click()

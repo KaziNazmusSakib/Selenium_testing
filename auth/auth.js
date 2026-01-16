@@ -8,19 +8,20 @@ function getUser() {
     return JSON.parse(localStorage.getItem("user"));
 }
 
-/* Signin Handler */
+ 
+/* ================= SIGN UP ================= */
 
 const signupForm = document.getElementById("signupForm");
 
-if(signupForm) {
+if (signupForm) {
     signupForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        
-        let username = document.getElementById("signupUser").value.trim();
-        let email = document.getElementById("signupEmail").value.trim();
-        let password = document.getElementById("signupPassword").value.trim();
 
-        if(!username || !email || !password) {
+        const username = document.getElementById("signupUser").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPassword").value.trim();
+
+        if (!username || !email || !password) {
             alert("All fields are required!");
             return;
         }
@@ -29,35 +30,33 @@ if(signupForm) {
         saveUser(user);
 
         alert("Account created successfully!");
-        window.location.href = "/auth/login.html"
-        //<a href="/auth/login.html">Login</a>
+        window.location.href = "login.html";
     });
 }
 
-/* Login Handler */
+/* ================= LOGIN ================= */
 
 const loginForm = document.getElementById("loginForm");
 
-
-if(loginForm) {
+if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let email = document.getElementById("loginEmail").value.trim();
-        let password = document.getElementById("loginPassword").value.trim();
-        
-        const user = getUser();
-        
-        if(!user) {
-            alert("No user found! Please sign up first.");
-            return;
-        } 
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
 
-        if(user.email === email && user.password === password) {
-            alert("Login  successfull.");
+        const user = getUser();
+
+        if (!user) {
+            alert("No account found. Please sign up first.");
+            return;
+        }
+
+        if (user.email === email && user.password === password) {
+            alert("Login successful!");
             window.location.href = "/index.html";
         } else {
             alert("Invalid email or password");
-        } 
+        }
     });
 }

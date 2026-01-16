@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In | Nexify</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 
-<body class="bg-gray-200 flex justify-center items-center h-screen">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h2 class="text-3xl font-bold mb-6 text-center">Sign In</h2>
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-4xl animate-[fadeIn_0.7s_ease-out]">
+
+    <div class="grid md:grid-cols-2">
+
+      <!-- Branding -->
+      <div class="hidden md:flex flex-col justify-center bg-gradient-to-br from-indigo-600 to-blue-600 text-white p-10">
+        <h1 class="text-4xl font-bold mb-4">Welcome Back 👋</h1>
+        <p class="text-lg mb-8">Sign in to continue shopping</p>
+      </div>
+
+      <!-- Form -->
+      <div class="p-8 md:p-10">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+          Sign In
+        </h2>
 
         <form id="loginForm" class="space-y-4">
 
-            <input type="email" id="loginEmail" placeholder="Email"
-                class="w-full p-3 border rounded"/>
+          <input type="email" id="loginEmail" placeholder="Email Address"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"/>
 
-            <input type="password" id="loginPassword" placeholder="Password"
-                class="w-full p-3 border rounded"/>
+          <input type="password" id="loginPassword" placeholder="Password"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"/>
 
-            <button type="submit"
-                class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded">
-                Sign In
-            </button>
+          <button type="submit"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold">
+            Sign In
+          </button>
         </form>
 
-        <p class="mt-4 text-center">
-            Don’t have an account?
-            <a href="sign-up.html" class="text-blue-600 underline">Sign Up</a>
+        <p class="mt-6 text-center text-gray-600">
+          Don’t have an account?
+          <a href="sign-up.html" class="text-indigo-600 font-semibold hover:underline">
+            Create one
+          </a>
         </p>
+      </div>
 
-        <p class="text-center mt-2">
-            <a href="#" class="text-gray-500 underline">Forgot Password?</a>
-        </p>
     </div>
+  </div>
 
-    <script src="auth.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
